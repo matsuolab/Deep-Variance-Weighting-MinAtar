@@ -24,7 +24,8 @@ git clone https://github.com/matsuolab/Deep-Variance-Weighting.git && cd Deep-Va
 poetry install
 
 # Install MinAtar in submodule
-git submodule update && cd Deep-Variance-Weighting/MinAtar
+poetry shell
+git submodule update --init && cd MinAtar
 pip install -e .
 ```
 
