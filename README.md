@@ -1,6 +1,6 @@
-# Official Implementation of Deep Variance Weighting (DVW)
+# Official Implementation of Deep Variance Weighting (DVW) [Experiments in Section 7.2.2]
 
-This repository is the official implementation of Deep Variance Weighting proposed in [Regularization and Variance-Weighted Regression Achieves Minimax Optimality in Linear MDPs: Theory and Practice](TODO).
+This repository is the official implementation of Deep Variance Weighting for the section 7.2.2 in [Regularization and Variance-Weighted Regression Achieves Minimax Optimality in Linear MDPs: Theory and Practice](TODO).
 
 * We modified [CleanRL](https://github.com/vwxyzjn/cleanrl) repository (commit [d67ae0c](https://github.com/vwxyzjn/cleanrl/commit/d67ae0cd67f786864372181629d5e438699c9856)) and [MinAtar](https://github.com/kenjyoung/MinAtar) repository (commit [548b136](https://github.com/kenjyoung/MinAtar/commit/548b136885d1c387ddfe15e45ec774b7254e2ee5)).
 * You can see the implementation of M-DQN with DVW in [cleanrl/dqn_minatar.py](cleanrl/dqn_minatar.py) (or [cleanrl/dqn.py](cleanrl/dqn.py)).
@@ -20,7 +20,7 @@ We leave other files same as the original [CleanRL](https://github.com/vwxyzjn/c
 * Step 1: clone and install the repository
 ```bash
 # Install CleanRL
-git clone https://github.com/matsuolab/Deep-Variance-Weighting.git && cd Deep-Variance-Weighting
+git clone https://github.com/matsuolab/Deep-Variance-Weighting-MinAtar.git && cd Deep-Variance-Weighting-MinAtar
 poetry install
 
 # Install MinAtar in submodule
