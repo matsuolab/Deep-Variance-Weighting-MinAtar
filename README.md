@@ -1,62 +1,80 @@
->📋  A template README.md for code accompanying a Machine Learning paper
+# Official Implementation of Deep Variance Weighting (DVW)
 
-# My Paper Title
+This repository is the official implementation of Deep Variance Weighting proposed in [Regularization and Variance-Weighted Regression Achieves Minimax Optimality in Linear MDPs: Theory and Practice](TODO).
 
-This repository is the official implementation of [My Paper Title](https://arxiv.org/abs/2030.12345). 
+* We modified [CleanRL](https://github.com/vwxyzjn/cleanrl) repository (commit [d67ae0c](https://github.com/vwxyzjn/cleanrl/commit/d67ae0cd67f786864372181629d5e438699c9856)) and [MinAtar](https://github.com/kenjyoung/MinAtar) repository (commit [548b136](https://github.com/kenjyoung/MinAtar/commit/548b136885d1c387ddfe15e45ec774b7254e2ee5)).
+* You can see the implementation of M-DQN with DVW in [cleanrl/dqn_minatar.py](cleanrl/dqn_minatar.py) (or [cleanrl/dqn.py](cleanrl/dqn.py)).
+We leave other files same as the original [CleanRL](https://github.com/vwxyzjn/cleanrl).
 
->📋  Optional: include a graphic explaining your approach/main result, bibtex entry, link to demos, blog posts and tutorials
+
+
+<img src="minatar-results/breakout-Both.png" alt= “” width="200" height="200">
+<img src="minatar-results/space_invaders-Both.png" alt= “” width="200" height="200">
+<img src="minatar-results/freeway-Both.png" alt= “” width="200" height="200">
+<img src="minatar-results/seaquest-Both.png" alt= “” width="200" height="200">
+<img src="minatar-results/asterix-Both.png" alt= “” width="200" height="200">
+
 
 ## Requirements
 
-To install requirements:
+* Step 1: clone and install the repository
+```bash
+# Install CleanRL
+git clone https://github.com/matsuolab/Deep-Variance-Weighting.git && cd Deep-Variance-Weighting
+poetry install
 
-```setup
-pip install -r requirements.txt
+# Install MinAtar in submodule
+git submodule update && cd Deep-Variance-Weighting/MinAtar
+pip install -e .
 ```
 
->📋  Describe how to set up the environment, e.g. pip/conda/docker commands, download datasets, etc...
+* Step 2: Login to wandb (for ease of visualization and plotting)
 
-## Training
-
-To train the model(s) in the paper, run this command:
-
-```train
-python train.py --input-data <path_to_data> --alpha 10 --beta 20
+```bash
+wandb login # only required for the first time
 ```
 
->📋  Describe how to train the models, with example commands on how to train the models in your paper, including the full training procedure and appropriate hyperparameters.
+You can test if everything works by:
 
-## Evaluation
+```bash
+# If you have something wrong with GPU, please replace "--device cuda" with "--device cpu"
 
-To evaluate my model on ImageNet, run:
+# Weighted M-DQN
+poetry run python cleanrl/dqn_minatar.py --total-timesteps 50000 --env-id breakout --track --wandb-project-name minatar-test --exp-name Weight-Net-M-DQN --weight-type variance-net --device cuda
+# M-DQN
+poetry run python cleanrl/dqn_minatar.py --total-timesteps 50000 --env-id breakout --track --wandb-project-name minatar-test --exp-name M-DQN --weight-type none --device cuda
 
-```eval
-python eval.py --model-file mymodel.pth --benchmark imagenet
+# Weighted DQN
+poetry run python cleanrl/dqn_minatar.py --total-timesteps 50000 --env-id breakout --track --wandb-project-name minatar-test --exp-name Weight-Net-M-DQN --weight-type variance-net --kl-coef 0.0 --ent-coef 0.0 --device cuda
+# DQN
+poetry run python cleanrl/dqn_minatar.py --total-timesteps 50000 --env-id breakout --track --wandb-project-name minatar-test --exp-name DQN --weight-type none --kl-coef 0.0 --ent-coef 0.0 --device cuda
 ```
 
->📋  Describe how to evaluate the trained models on benchmarks reported in the paper, give commands that produce the results (section below).
+## Run MinAtar Experiments
 
-## Pre-trained Models
-
-You can download pretrained models here:
-
-- [My awesome model](https://drive.google.com/mymodel.pth) trained on ImageNet using parameters x,y,z. 
-
->📋  Give a link to where/how the pretrained models can be downloaded and how they were trained (if applicable).  Alternatively you can have an additional column in your results table with a link to the models.
-
-## Results
-
-Our model achieves the following performance on :
-
-### [Image Classification on ImageNet](https://paperswithcode.com/sota/image-classification-on-imagenet)
-
-| Model name         | Top 1 Accuracy  | Top 5 Accuracy |
-| ------------------ |---------------- | -------------- |
-| My awesome model   |     85%         |      95%       |
-
->📋  Include a table of results from your paper, and link back to the leaderboard for clarity and context. If your main result is a figure, include that figure and link to the command or notebook to reproduce it. 
+Run ```bash run_minatar.bash```
 
 
-## Contributing
+## Plot results
 
->📋  Pick a licence and describe how to contribute to your code repository. 
+Run all the cells in [minatar-results/result-plotter.ipynb](minatar-results/result-plotter.ipynb).
+The figures will be saved in [minatar-results](/minatar-results/) directory.
+
+
+## (Optional) Classic Control
+
+If you are interested in other environments, try the following for classic controls:
+
+```bash
+# If you have something wrong with GPU, please replace "--device cuda" with "--device cpu"
+
+# Weighted M-DQN
+poetry run python cleanrl/dqn.py --total-timesteps 50000 --env-id CartPole-v1 --track --wandb-project-name classic-control-test --exp-name Weight-Net-M-DQN --weight-type variance-net  --device cuda
+# M-DQN
+poetry run python cleanrl/dqn.py --total-timesteps 50000 --env-id CartPole-v1 --track --wandb-project-name classic-control-test --exp-name M-DQN --weight-type none --device cuda 
+
+# Weighted DQN
+poetry run python cleanrl/dqn.py --total-timesteps 50000 --env-id CartPole-v1 --track --wandb-project-name classic-control-test --exp-name Weight-Net-M-DQN --weight-type variance-net --kl-coef 0.0 --ent-coef 0.0 --device cuda
+# DQN
+poetry run python cleanrl/dqn.py --total-timesteps 50000 --env-id CartPole-v1 --track --wandb-project-name classic-control-test --exp-name DQN --weight-type none --kl-coef 0.0 --ent-coef 0.0 --device cuda 
+```

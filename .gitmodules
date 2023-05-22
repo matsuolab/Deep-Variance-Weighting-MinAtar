@@ -1,0 +1,3 @@
+[submodule "MinAtar"]
+	path = MinAtar
+	url = https://github.com/kenjyoung/MinAtar.git
