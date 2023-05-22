@@ -17,10 +17,9 @@ We leave other files same as the original [CleanRL](https://github.com/vwxyzjn/c
 
 ## Requirements
 
-* Step 1: clone and install the repository
+* Step 1: Install dependencies
 ```bash
-# Install CleanRL
-git clone https://github.com/matsuolab/Deep-Variance-Weighting-MinAtar.git && cd Deep-Variance-Weighting-MinAtar
+# make sure you are in Variance-Weighted-MDVI/Deep-Variance-Weighting-MinAtar
 poetry install
 
 # Install MinAtar in submodule
