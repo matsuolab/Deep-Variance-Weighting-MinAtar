@@ -1,6 +1,6 @@
 # Official Implementation of Deep Variance Weighting (DVW) [Experiments in Section 7.2.2]
 
-This repository is the official implementation of Deep Variance Weighting for the MinAtar experiments in [Regularization and Variance-Weighted Regression Achieves Minimax Optimality in Linear MDPs: Theory and Practice](TODO).
+This repository is the official implementation of Deep Variance Weighting for the MinAtar experiments in [Regularization and Variance-Weighted Regression Achieves Minimax Optimality in Linear MDPs: Theory and Practice](https://arxiv.org/abs/2305.13185).
 
 * We modified [CleanRL](https://github.com/vwxyzjn/cleanrl) repository (commit [d67ae0c](https://github.com/vwxyzjn/cleanrl/commit/d67ae0cd67f786864372181629d5e438699c9856)) and [MinAtar](https://github.com/kenjyoung/MinAtar) repository (commit [548b136](https://github.com/kenjyoung/MinAtar/commit/548b136885d1c387ddfe15e45ec774b7254e2ee5)).
 * You can see the implementation of M-DQN with DVW in [cleanrl/dqn_minatar.py](cleanrl/dqn_minatar.py) (or [cleanrl/dqn.py](cleanrl/dqn.py)).
